@@ -1,0 +1,118 @@
+<script>
+  let play = function () {};
+  play.prototype.sports = "football";
+
+  //  console.log("play __proto__", play.__proto__); // play __proto__ ƒ () { [native code] }
+
+  //console.log("play prototype", play.prototype); //play prototype {sports: "football", constructor: ƒ}
+
+  let morningPlay = new play();
+
+  //console.log("morningPlay __proto__", morningPlay.__proto__); //morningPlay __proto__ {sports: "football", constructor: ƒ}
+
+  //console.log("morningPlay prototype", morningPlay.prototype); //morningPlay prototype undefined
+
+  let animal = { type: "herbivo" };
+  let dog = {};
+  dog.__proto__ = animal;
+
+  // fn.prototype.temp = "100";
+  // Method
+
+  function one() {
+    this.tag = "one";
+  }
+  one.test = 10;
+  function two() {
+    one.call(this);
+    this.name = "two";
+  }
+
+  let t = new two();
+  class Person {
+    constructor(first, last, age, gender, interests) {
+      this.name = {
+        first,
+        last,
+      };
+      this.age = age;
+      this.gender = gender;
+      this.interests = interests;
+    }
+
+    greeting() {
+      console.log(`Hi! I'm ${this.name.first}`);
+    }
+
+    farewell() {
+      console.log(`${this.name.first} has left the building. Bye for now!`);
+    }
+  }
+  class Teacher extends Person {
+    constructor(first, last, age, gender, interests, subject, grade) {
+      super(first, last, age, gender, interests);
+      this.subject = subject;
+      this.grade = grade;
+    }
+  }
+  let snape = new Teacher(
+    "Severus",
+    "Snape",
+    58,
+    "male",
+    ["Potions"],
+    "Dark arts",
+    5
+  );
+
+  function makeCurry(fun, ...rest) {
+    return function (...innerRest) {
+      if (fun.length === rest.length + innerRest.length) {
+        return fun.apply(null, [...rest, ...innerRest]);
+      } else {
+        return makeCurry(fun, ...rest, ...innerRest);
+      }
+    };
+  }
+
+  let multiply = function (a, b, c) {
+    return a * b * c;
+  };
+
+  let multiplyWithOneParam = function (a) {
+    return a + 10;
+  };
+
+  var result = makeCurry(multiply)(10, 20)(5);
+  console.log("Curry :: ", result);
+
+  result = makeCurry(multiplyWithOneParam)(20);
+  console.log("Curry :: ", result);
+
+  var fibonacci = (function () {
+    var memo = {};
+    var slice = Array.prototype.slice;
+
+    function f(x, n) {
+      var args = slice.call(arguments);
+      console.log("memo ", memo);
+      debugger;
+
+      var value;
+
+      if (args in memo) {
+        value = memo[args];
+      } else {
+        if (n === 0 || n === 1) value = n;
+        else value = f(x, n - 1) + f(x, n - 2);
+
+        memo[arguments] = value;
+      }
+
+      return value;
+    }
+
+    return f;
+  })();
+  fibonacci("abc", 4);
+</script>

@@ -1,0 +1,36 @@
+<html>
+  <style>
+    .recentSearch {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      background-color: DodgerBlue;
+    }
+
+    .recentSearch > div {
+      background-color: #f1f1f1;
+      margin: 5px;
+      text-align: left;
+      line-height: 45px;
+      font-size: 20px;
+    }
+  </style>
+  <body>
+    <div>
+      <div style="display: inline">
+        <label for="fname">Search Flight:</label>
+      </div>
+      <div style="display: inline">
+        <input id="flight_input" type="text" onkeydown="save(1, 2, 3, 4)" />
+        <div id="search-list" style="margin-left: 7%;"></div>
+      </div>
+    </div>
+
+    <div id="recent-search">
+      <h2>Recent Search</h2>
+      <div id="recent-search-list" class="recentSearch"></div>
+    </div>
+    <script></script>
+    <script src="test.js"></script>
+  </body>
+</html>
